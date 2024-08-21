@@ -23,29 +23,60 @@ class MyApp extends StatelessWidget{
 
 }
 
-class HomeActivity extends StatelessWidget{
-  const HomeActivity({super.key});
+class HomeActivity extends StatelessWidget {
+  HomeActivity({super.key});
 
 
   //a function to work in app bar:
-  MySnackBar(message, context){
+  MySnackBar(message, context) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message))
+        SnackBar(content: Text(message))
     );
   }
-  
+
+  //custom style for body button
+  ButtonStyle buttonStyle = ElevatedButton.styleFrom(
+      padding: EdgeInsets.all(15),
+      backgroundColor: Colors.orange,
+      foregroundColor: Colors.white,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(5))
+      )
+  );
+
+  //ALert Dialog
+  MyAlertDialog(context) {
+      return showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return Expanded(
+                child: AlertDialog(
+                   title: Text('Alert!'),
+                   content: Text('Want to Delete?'),
+                )
+           );
+        }
+      );
+  }
+
+
+
+
   @override
   Widget build(BuildContext context) {
+
+
+
    return Scaffold(
      appBar: AppBar(
-       title: Text('App_one'),
+       title: Text('Robot_one', style: TextStyle(color: Colors.white)),
        titleSpacing: 1,
        toolbarHeight: 60, //60 is default
        toolbarOpacity: 0.9,
        elevation: 4,
        backgroundColor: Colors.deepOrange,
        actions: [
-         IconButton(onPressed:(){MySnackBar("This is a Comment", context);}, icon: Icon(Icons.account_balance_wallet)),
+         IconButton(onPressed:(){MySnackBar("This is a Comment", context);}, icon: Icon(Icons.account_balance_wallet), ),
          IconButton(onPressed:(){MySnackBar("This is a Search", context);}, icon: Icon(Icons.search)),
          IconButton(onPressed:(){MySnackBar("This is a Settings", context);}, icon: Icon(Icons.settings)),
        ],
@@ -85,8 +116,7 @@ class HomeActivity extends StatelessWidget{
            DrawerHeader(
                padding: EdgeInsets.all(0),
                child: UserAccountsDrawerHeader(
-                 decoration: BoxDecoration(color: Colors.black), accountName: Text("Rahman Mahbubur"), accountEmail: Text('Mahbub@gmail.com'),
-             
+                 decoration: BoxDecoration(color: Colors.deepOrange), accountName: Text("Rahman Mahbubur"), accountEmail: Text('Mahbub@gmail.com'), currentAccountPicture: Image.network("https://cdn.pixabay.com/photo/2024/03/20/03/06/ai-generated-8644499_640.jpg"), onDetailsPressed: (){MySnackBar("This is profile section", context);},
            ) ),
            ListTile(leading: Icon(Icons.home), title: Text("Home"), onTap: (){MySnackBar('Home', context);},),
            ListTile(leading: Icon(Icons.person_off), title: Text("Profile"), onTap: (){MySnackBar('Profile', context);}),
@@ -96,13 +126,85 @@ class HomeActivity extends StatelessWidget{
          ],
        ),
      ),
-     body: Text('Hello'),
-     // drawer: (),
-     // endDrawer: (),
-     // bottomNavigationBar: (),
-     // floatingActionButton: (),
+     endDrawer: Drawer(
+       child: ListView(
+         children: [
+           DrawerHeader(
+               padding: EdgeInsets.all(0),
+               child: UserAccountsDrawerHeader(
+                 decoration: BoxDecoration(color: Colors.green), accountName: Text("Robot_One"), accountEmail: Text('robot_one@jp'), currentAccountPicture: Image.network("https://images.pexels.com/photos/8294657/pexels-photo-8294657.jpeg?auto=compress&cs=tinysrgb&w=600"), onDetailsPressed: (){MySnackBar("This is profile section", context);},
+               ) ),
+           ListTile(leading: Icon(Icons.local_activity), title: Text("Activity"), onTap: (){MySnackBar('Activity', context);},),
+           ListTile(leading: Icon(Icons.work), title: Text("Working Area"), onTap: (){MySnackBar('Working Area', context);}),
+           ListTile(leading: Icon(Icons.manage_accounts), title: Text("Management"), onTap: (){MySnackBar('Management', context);}),
 
+         ],
+       ),
+     ),
+     // body: Container(
+     //   height: 300,
+     //   width: 200,
+     //   alignment: Alignment.topCenter,
+     //   //margin: EdgeInsets.fromLTRB(100,10,10,30),
+     //   margin: EdgeInsets.all(40),
+     //   padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
+     //   //color: Colors.blue,
+     //   decoration: BoxDecoration(
+     //     color: Colors.yellow,
+     //     border: Border.all(color: Colors.black, width: 1)
+     //   ),
+     //   child: Text("HEllo"),
+     // )
+
+       //After learning Container of Body let's check Row and Column of Body(it is generally used for displaying images)
+     // body: Column(
+     //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+     //   children: [
+     //     Container(height:100, width: 100, child: Image.network('https://images.pexels.com/photos/8294666/pexels-photo-8294666.jpeg?auto=compress&cs=tinysrgb&w=600')),
+     //     Container(height:100, width: 100, child: Image.network('https://images.pexels.com/photos/8566474/pexels-photo-8566474.jpeg?auto=compress&cs=tinysrgb&w=600')),
+     //     Container(height:100, width: 100, child: Image.network('https://images.pexels.com/photos/185725/pexels-photo-185725.jpeg?auto=compress&cs=tinysrgb&w=600'))
+     //   ],
+     // ),
+     body: Column(
+       children: [
+         SizedBox(height: 10), // Add some spacing between the text and the row
+         Text(
+           'Robot One Inc.', // Add your desired text here
+           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+         ),
+         SizedBox(height: 5), // Add some spacing between the text and the row
+         Row(
+           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+           children: [
+             Container(
+               height: 200,
+               width: 100,
+               child: Image.network('https://images.pexels.com/photos/8294666/pexels-photo-8294666.jpeg?auto=compress&cs=tinysrgb&w=600'),
+             ),
+             Container(
+               height: 200,
+               width: 100,
+               child: Image.network('https://images.pexels.com/photos/8566474/pexels-photo-8566474.jpeg?auto=compress&cs=tinysrgb&w=600'),
+             ),
+             Container(
+               height: 200,
+               width: 100,
+               child: Image.network('https://images.pexels.com/photos/185725/pexels-photo-185725.jpeg?auto=compress&cs=tinysrgb&w=600'),
+             ),
+           ],
+         ),
+         Row(
+           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+             children: [
+               // TextButton(onPressed: (){MySnackBar('Button message', context);}, child: Text('Button')),
+               ElevatedButton(onPressed: (){MyAlertDialog(context);}, child: Text('Elevated Button'), style: buttonStyle),
+               // OutlinedButton(onPressed: (){MySnackBar('Outline Button message', context);}, child: Text('Outline Button'))
+
+
+             ],
+         )
+       ],
+     ),
    );
   }
-
 }
