@@ -1,3 +1,5 @@
+import 'package:app_one/Activity1.dart';
+import 'package:app_one/Activity2.dart';
 import 'package:flutter/material.dart';
 
 main(){
@@ -44,7 +46,19 @@ class HomeActivity extends StatelessWidget {
       )
   );
 
-  //ALert Dialog
+  //Button for Input field:
+  ButtonStyle buttonInputStyle = ElevatedButton.styleFrom(
+    minimumSize: Size(300, 50),
+      //minimumSize: Size(double.infinity, 50),// double.infinity means full width
+    backgroundColor: Colors.deepOrange,
+    foregroundColor: Colors.white, // Text color
+    side: BorderSide(color: Colors.black, width: 1), // Border color and width
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(15), // Border radius
+    ),// Set the border color and width
+  );
+
+  //Alert Dialog
   MyAlertDialog(context) {
       return showDialog(
           context: context,
@@ -53,6 +67,13 @@ class HomeActivity extends StatelessWidget {
                 child: AlertDialog(
                    title: Text('Alert!'),
                    content: Text('Want to Delete?'),
+                  actions: [
+                    TextButton(onPressed: (){
+                      MySnackBar('Delete success', context);
+                      Navigator.of(context).pop();
+                    }, child: Text('Yes')),
+                    TextButton(onPressed: (){Navigator.of(context).pop();}, child: Text('No'))
+                  ],
                 )
            );
         }
@@ -165,14 +186,36 @@ class HomeActivity extends StatelessWidget {
      //     Container(height:100, width: 100, child: Image.network('https://images.pexels.com/photos/185725/pexels-photo-185725.jpeg?auto=compress&cs=tinysrgb&w=600'))
      //   ],
      // ),
-     body: Column(
+     body: SingleChildScrollView(
+     child: Column(
        children: [
-         SizedBox(height: 10), // Add some spacing between the text and the row
+         SizedBox(height: 5), // Add some spacing between the text and the row
          Text(
            'Robot One Inc.', // Add your desired text here
            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
          ),
-         SizedBox(height: 5), // Add some spacing between the text and the row
+         SizedBox(height: 5),
+
+         //naviagation to Activity1 and Activity2 screen:
+         Column(
+           mainAxisAlignment: MainAxisAlignment.start,
+           children: [
+             ElevatedButton(onPressed: (){
+               Navigator.push(context, MaterialPageRoute(builder: (context)=>Activity1('Data Home to Activity1')));
+               }, child: Text('GO ACTIVITY1')),
+             ElevatedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> Activity2('Data home to Activity2')));
+               }, child: Text('GO ACTIVITY2')),
+           ],
+         ),
+         Column(
+           mainAxisAlignment: MainAxisAlignment.start,
+           children: [
+             Padding(padding:EdgeInsets.all(10), child: TextField(decoration: InputDecoration(label: Text('First Name'),border: OutlineInputBorder()),)),
+             Padding(padding:EdgeInsets.all(10), child: TextField(decoration: InputDecoration(label: Text('Last Name'),border: OutlineInputBorder()),)),
+             Padding(padding:EdgeInsets.all(10), child: TextField(decoration: InputDecoration(label: Text('Email Address'),border: OutlineInputBorder()),)),
+             Padding(padding:EdgeInsets.all(20), child: ElevatedButton(onPressed: (){}, child:Text('Submit'), style: buttonInputStyle),)
+           ],
+         ), // Add some spacing between the text and the row
          Row(
            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
            children: [
@@ -196,15 +239,16 @@ class HomeActivity extends StatelessWidget {
          Row(
            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
              children: [
-               // TextButton(onPressed: (){MySnackBar('Button message', context);}, child: Text('Button')),
-               ElevatedButton(onPressed: (){MyAlertDialog(context);}, child: Text('Elevated Button'), style: buttonStyle),
+               TextButton(onPressed: (){MySnackBar('Button message', context);}, child: Text('Button')),
+               ElevatedButton(onPressed: (){MyAlertDialog(context);}, child: Text('Elevated Button for Alert dialog'), style: buttonStyle),
                // OutlinedButton(onPressed: (){MySnackBar('Outline Button message', context);}, child: Text('Outline Button'))
 
 
              ],
-         )
+         ),
        ],
      ),
+     )
    );
   }
 }
