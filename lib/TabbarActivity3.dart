@@ -1,4 +1,12 @@
 import 'package:app_one/Activity2.dart';
+import 'fragment/AlarmFragment.dart';
+import 'fragment/BalanceFragment.dart';
+import 'fragment/ContactFragment.dart';
+import 'fragment/EmailFragment.dart';
+import 'fragment/HomeFragment.dart';
+import 'fragment/PersonFragment.dart';
+import 'fragment/SearchFragment.dart';
+import 'fragment/SettingsFragment.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -26,20 +34,20 @@ class TabbarActivity3 extends StatelessWidget {
                 Tab(icon: Icon(Icons.contact_page), text:'Contact'),
                 Tab(icon: Icon(Icons.person), text:'Person'),
                 Tab(icon: Icon(Icons.access_alarm), text:'Alarm'),
-                Tab(icon: Icon(Icons.message), text:'Message')
+                Tab(icon: Icon(Icons.balance), text:'Balance')
               ],
             ),
           ),
           body: TabBarView(
             children: [
-              Text('1'),
-              Text('2'),
-              Text('3'),
-              Text('4'),
-              Text('5'),
-              Text('6'),
-              Text('7'),
-              Text('8'),
+              HomeFragment(),
+              SearchFragment(),
+              SettingsFragment(),
+              EmailFragment(),
+              ContactFragment(),
+              PersonFragment(),
+              AlarmFragment(),
+              BalanceFragment(),
             ],
           )
         )
